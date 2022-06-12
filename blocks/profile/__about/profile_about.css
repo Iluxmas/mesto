@@ -1,0 +1,15 @@
+.profile__about {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0;
+  text-align: center;
+}
+
+@media (min-width: 545px) {
+  .profile__about {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: left;
+  }
+}

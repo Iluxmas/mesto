@@ -1,0 +1,19 @@
+.profile__info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-direction: column;
+}
+
+@media (min-width: 545px) {
+  .profile__info {
+    flex-direction: row;
+    margin-bottom: 36px;
+  }
+}
+
+@media (min-width: 768px) {
+  .profile__info {
+    margin-bottom: 0;
+  }
+}

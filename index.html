@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./pages/index.css">
+
+</head>
+
+<body class="body">
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" src="./img/Logo_mesto.png" alt="Лого">
+    </header>
+
+    <div class="popup">
+      <div class="popup__container">
+        <h2 class="popup__header">Редактировать профиль</h2>
+        <form action="" class="popup__form">
+          <input class="popup__input-name" type="text" placeholder="Введите имя профиля...">
+          <input class="popup__input-about" type="text" placeholder="О себе...">
+          <button class="popup__form-save" type="submit">Сохранить</button>
+        </form>
+        <button class="popup__close-button">&#10005;</button>
+      </div>
+    </div>
+
+    <main class="main">
+      <section class="profile">
+        <div class="profile__info">
+          <img class="profile__avatar" src="./img/profile_image.jpg" alt="">
+          <div class="profile__details">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button"></button>
+            <h2 class="profile__about">Исследователь океана</h2>
+          </div>
+        </div>
+        <button class="profile__add-card">&plus;</button>
+      </section>
+
+      <section class="gallery">
+        <!-- про <li> знаю, не нравится мне делать его там, где список не в классическом виде. -->
+        <div class="card">
+          <img class="card__image" src="./img/gallery_image_Athens.JPEG" alt="Афины">
+          <div class="card__info">
+            <h3 class="card__title">Афины</h3>
+            <button class="card__like-button"></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card__image" src="./img/gallery_image_Brussel.JPG" alt="Брюссель">
+          <div class="card__info">
+            <h3 class="card__title" title="Атомиум, Брюссель">Атомиум, Брюссель</h3>
+            <button class="card__like-button card__like-button_active"></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card__image" src="./img/gallery_image_Crete.JPEG" alt="Крит">
+          <div class="card__info">
+            <h3 class="card__title">Крит</h3>
+            <button class="card__like-button"></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card__image" src="./img/gallery_image_Istanbul.JPEG" alt="Стамбульский кот">
+          <div class="card__info">
+            <h3 class="card__title" title="Стамбульский кот">Стамбульский кот</h3>
+            <button class="card__like-button"></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card__image" src="./img/gallery_image_Rotterdam.JPEG" alt="ВРоттердам">
+          <div class="card__info">
+            <h3 class="card__title" title="Кубические дома, Роттердам">Кубические дома, Роттердам</h3>
+            <button class="card__like-button"></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card__image" src="./img/gallery_image_SvetiStephan.JPEG" alt="Свети-Стефан">
+          <div class="card__info">
+            <h3 class="card__title">Свети-Стефан</h3>
+            <button class="card__like-button"></button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <footer class="footer">
+      <p class="footer__credits">&copy; 2220 Mesto Russia</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
