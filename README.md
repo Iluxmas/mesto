@@ -18,4 +18,4 @@ Next features are planned to be implemented: cards adding and deleting, like but
 
 **GitHub**
 
-[Сcылка на GitHub Pages](https://iluxmas.github.io/mesto/index.html)
+[Link to GitHub Pages](https://iluxmas.github.io/mesto/index.html)
