@@ -13,7 +13,7 @@
   transition: opacity .15s;
 }
 
-@media (min-width: 552px) {
+@media (min-width: 545px) {
   .profile__edit-button {
     width: 24px;
     height: 24px;
