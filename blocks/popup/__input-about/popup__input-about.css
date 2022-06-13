@@ -1,14 +1,13 @@
 .popup__input-about {
   width: 100%;
-  border: none;
   display: block;
   border: none;
   padding: 0;
   margin: 0 auto;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 45px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-size: 14px;
   line-height: 17px;
   color: #000000;
@@ -18,7 +17,7 @@
   color: #9b9b9b;
 }
 
-@media (min-width: 552px) {
+@media (min-width: 545px) {
   .popup__input-about {
     margin-bottom: 48px;
   }

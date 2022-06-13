@@ -19,7 +19,7 @@
   transition: background-color .15s;
 }
 
-@media (min-width: 552px) {
+@media (min-width: 545px) {
   .popup__form-save {
     font-size: 18px;
     line-height: 22px;

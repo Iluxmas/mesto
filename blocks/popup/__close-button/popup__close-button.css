@@ -9,7 +9,7 @@
   border: none;
 }
 
-@media (min-width: 552px) {
+@media (min-width: 545px) {
   .popup__close-button {
     right: -47px;
     font-size: 40px;
