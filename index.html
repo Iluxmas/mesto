@@ -19,8 +19,9 @@
       <div class="popup__container">
         <h2 class="popup__header">Редактировать профиль</h2>
         <form action="server.php" class="popup__form">
-          <input class="popup__input-name" type="text" placeholder="Введите имя профиля...">
-          <input class="popup__input-about" type="text" placeholder="О себе...">
+          <input class="popup__input popup__input_type_name" type="text" name="name"
+            placeholder="Введите имя профиля...">
+          <input class="popup__input popup__input_type_about" type="text" name="about" placeholder="О себе...">
           <button class="popup__form-save" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-button">&#10005;</button>
@@ -34,7 +35,7 @@
           <div class="profile__details">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button class="profile__edit-button"></button>
-            <h2 class="profile__about">Исследователь океана</h2>
+            <p class="profile__about">Исследователь океана</p>
           </div>
         </div>
         <button class="profile__add-card">&plus;</button>

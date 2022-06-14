@@ -3,9 +3,9 @@ const openModalBttn = document.querySelector('.profile__edit-button');
 const closeModalBttn = document.querySelector('.popup__close-button');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
-const inputName = document.querySelector('.popup__input-name');
-const inputAbout = document.querySelector('.popup__input-about');
-const likeBttn = document.querySelectorAll('.card__like-button');
+const inputName = document.querySelector('.popup__input_type_name');
+const inputAbout = document.querySelector('.popup__input_type_about');
+// const likeBttn = document.querySelectorAll('.card__like-button');
 const popupProfileForm = document.querySelector('.popup__form');
 
 // const toggleLike = function (event) {

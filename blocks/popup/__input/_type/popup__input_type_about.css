@@ -1,0 +1,10 @@
+.popup__input_type_about {
+  display: block;
+  margin-bottom: 45px;
+}
+
+@media (min-width: 545px) {
+  .popup__input_type_about {
+    margin-bottom: 48px;
+  }
+}
