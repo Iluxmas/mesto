@@ -4,6 +4,7 @@
   height: 18px;
   border: 1px solid #FFF;
   background: center/48% url(../../../img/pencil_icon.png) no-repeat;
+  grid-column: 2 / 3;
 }
 
 .profile__edit-button:hover {

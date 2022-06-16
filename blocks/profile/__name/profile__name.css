@@ -1,18 +1,19 @@
 .profile__name {
   display: inline-block;
   min-width: 100%;
-  max-width: 260px;
+  max-width: 200px;
   font-weight: 500;
   font-size: 27px;
   line-height: 33px;
   margin: 0;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (min-width: 545px) {
   .profile__name {
-    max-width: 75%;
+    max-width: 80%;
     font-size: 42px;
     line-height: 48px;
     text-align: left;
