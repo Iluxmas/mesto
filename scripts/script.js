@@ -31,13 +31,33 @@ function closeModal(event) {
   event.target.closest('.popup').classList.remove('popup_opened');
 };
 
-function saveFormData(event) {
+function submitProfileData(event) {
   event.preventDefault();
 
   if (inputName.value && inputAbout.value) {
 
     profileName.textContent = inputName.value;
     profileAbout.textContent = inputAbout.value;
+    closeModal(event);
+
+  } else {
+    alert('Заполните все поля');
+  }
+};
+
+function submitNewCard(event) {
+  event.preventDefault();
+  const newCardName = document.querySelector('.popup__input_type_title');
+  const newCardSrc = document.querySelector('.popup__input_type_source');
+
+  if (newCardName.value && newCardSrc.value) {
+
+    renderNewCard({
+      name: newCardName.value,
+      source: newCardSrc.value
+    }, cardsContainer);
+
+    popupAddCardForm.reset();
     closeModal(event);
 
   } else {
@@ -87,7 +107,7 @@ initialCards.forEach(item => renderNewCard(item, cardsContainer));
 
 // Кнопка сохранения формы профиля
 
-popupProfileForm.addEventListener('submit', saveFormData);
+popupProfileForm.addEventListener('submit', submitProfileData);
 
 // Кнопки закрытия модальных окон
 
@@ -103,22 +123,4 @@ addCardBttn.addEventListener('click', () => openModal(modalAddCard));
 
 // Кнопка сохранение формы новой карточки
 
-popupAddCardForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const newCardName = document.querySelector('.popup__input_type_title');
-  const newCardSrc = document.querySelector('.popup__input_type_source');
-
-  if (newCardName.value && newCardSrc.value) {
-
-    renderNewCard({
-      name: newCardName.value,
-      source: newCardSrc.value
-    }, cardsContainer);
-
-    popupAddCardForm.reset();
-    closeModal(event);
-
-  } else {
-    alert('Заполните все поля');
-  }
-});
+popupAddCardForm.addEventListener('submit', submitNewCard);
