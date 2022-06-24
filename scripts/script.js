@@ -91,7 +91,7 @@ const renderNewCard = function (data, container) {
     modalImageZoom.querySelector('.popup__image-caption').textContent = imageCaption;
   });
 
-  container.append(cardElement);
+  container.prepend(cardElement);
 };
 
 // Стартовый рендер карточек по массиву и template
@@ -133,7 +133,7 @@ popupAddCardForm.addEventListener('submit', (event) => {
 
   if (newCardName.value && newCardSrc.value) {
 
-    newCardRender({
+    renderNewCard({
       name: newCardName.value,
       source: newCardSrc.value
     }, cardsContainer);

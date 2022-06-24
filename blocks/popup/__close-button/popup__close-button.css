@@ -1,9 +1,9 @@
 .popup__close-button {
   color: #FFFFFF;
-  font-weight: 500;
-  font-size: 32px;
+  font-weight: 700;
+  font-size: 26px;
   position: absolute;
-  top: -47px;
+  top: -40px;
   right: -5px;
   background: none;
   border: none;
@@ -11,8 +11,9 @@
 
 @media (min-width: 545px) {
   .popup__close-button {
+    top: -47px;
     right: -47px;
-    font-size: 40px;
+    font-size: 36px;
   }
 }
 
