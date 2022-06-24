@@ -16,15 +16,36 @@
       <img class="header__logo" src="./img/Logo_mesto.png" alt="Лого">
     </header>
 
-    <div class="popup">
+    <div class="popup popup_profile-edit">
       <div class="popup__container">
         <h2 class="popup__header">Редактировать профиль</h2>
-        <form action="server.php" class="popup__form">
+        <form action="server.php" class="popup__form popup__form_profile">
           <input class="popup__input popup__input_type_name" type="text" name="name"
             placeholder="Введите имя профиля...">
           <input class="popup__input popup__input_type_about" type="text" name="about" placeholder="О себе...">
           <button class="popup__form-save" type="submit">Сохранить</button>
         </form>
+        <button class="popup__close-button">&#10005;</button>
+      </div>
+    </div>
+
+    <div class="popup popup_add-card">
+      <div class="popup__container">
+        <h2 class="popup__header">Новое место</h2>
+        <form action="server.php" class="popup__form popup__form_add-card">
+          <input class="popup__input popup__input_type_title" type="text" name="name" placeholder="Название">
+          <input class="popup__input popup__input_type_source" type="text" name="source"
+            placeholder="Ссылка на картинку">
+          <button class="popup__form-save" type="submit">Создать</button>
+        </form>
+        <button class="popup__close-button">&#10005;</button>
+      </div>
+    </div>
+
+    <div class="popup popup_card-zoom ">
+      <div class="popup__image-container">
+        <img class="popup__zoom-image" src="" alt="">
+        <h3 class="popup__image-caption"></h3>
         <button class="popup__close-button">&#10005;</button>
       </div>
     </div>
@@ -44,48 +65,6 @@
 
       <section class="gallery">
         <ul class="gallery__container">
-          <li class="card">
-            <img class="card__image" src="./img/gallery_image_Athens.JPEG" alt="Афины">
-            <div class="card__info">
-              <h3 class="card__title">Афины</h3>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./img/gallery_image_Brussel.JPG" alt="Брюссель">
-            <div class="card__info">
-              <h3 class="card__title" title="Атомиум, Брюссель">Атомиум, Брюссель</h3>
-              <button class="card__like-button card__like-button_active"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./img/gallery_image_Crete.JPEG" alt="Крит">
-            <div class="card__info">
-              <h3 class="card__title">Крит</h3>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./img/gallery_image_Istanbul.JPEG" alt="Стамбульский кот">
-            <div class="card__info">
-              <h3 class="card__title" title="Стамбульский кот">Стамбульский кот</h3>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./img/gallery_image_Rotterdam.JPEG" alt="ВРоттердам">
-            <div class="card__info">
-              <h3 class="card__title" title="Кубические дома, Роттердам">Кубические дома, Роттердам</h3>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./img/gallery_image_SvetiStephan.JPEG" alt="Свети-Стефан">
-            <div class="card__info">
-              <h3 class="card__title">Свети-Стефан</h3>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
         </ul>
       </section>
 
@@ -94,6 +73,17 @@
       <p class="footer__credits">&copy; 2220 Mesto Russia</p>
     </footer>
   </div>
+
+  <template id="card-template">
+    <li class="card">
+      <img class="card__image" src="" alt="">
+      <div class="card__info">
+        <h3 class="card__title"></h3>
+        <button class="card__like-button"></button>
+      </div>
+      <button class="card__remove-button"></button>
+    </li>
+  </template>
 
   <script src="./scripts/script.js"></script>
 </body>
