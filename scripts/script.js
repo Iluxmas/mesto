@@ -1,66 +1,37 @@
 // Объявляем переменные и элементы
 
-let initialCards = [{
-    name: 'Афины',
-    source: './img/gallery_image_Athens_original.JPEG'
-  },
-  {
-    name: 'Атомиум, Брюссель',
-    source: './img/gallery_image_Brussel_original.JPG'
-  },
-  {
-    name: 'Крит',
-    source: './img/gallery_image_Crete_original.JPEG'
-  },
-  {
-    name: 'Стамбульский кот',
-    source: './img/gallery_image_Istanbul_original.JPEG'
-  },
-  {
-    name: 'Кубические дома, Роттердам',
-    source: './img/gallery_image_Rotterdam_original.JPEG'
-  },
-  {
-    name: 'Свети-Стефан',
-    source: './img/gallery_image_SvetiStephan_original.JPEG'
-  }
-];
-
-const modalEditProfile = document.querySelector('.popup_profile-edit');
-const modalAddCard = document.querySelector('.popup_add-card');
-const modalImageZoom = document.querySelector('.popup_card-zoom');
-const closeModalBttns = document.querySelectorAll('.popup__close-button');
 const inputName = document.querySelector('.popup__input_type_name');
 const inputAbout = document.querySelector('.popup__input_type_about');
+const profileName = document.querySelector('.profile__name');
+const addCardBttn = document.querySelector('.profile__add-card');
+const modalImageZoom = document.querySelector('.popup_card-zoom');
+const imageZoomed = modalImageZoom.querySelector('.popup__zoom-image');
+const cardTemplate = document.querySelector('#card-template').content;
+const profileAbout = document.querySelector('.profile__about');
+const modalAddCard = document.querySelector('.popup_add-card');
+const deleteCardBttn = document.querySelector('.card__remove-button');
+const cardsContainer = document.querySelector('.gallery__container');
+const editProfileBttn = document.querySelector('.profile__edit-button');
+const closeModalBttns = document.querySelectorAll('.popup__close-button');
 const popupProfileForm = document.querySelector('.popup__form_profile');
 const popupAddCardForm = document.querySelector('.popup__form_add-card');
-const editProfileBttn = document.querySelector('.profile__edit-button');
-const addCardBttn = document.querySelector('.profile__add-card');
-const profileName = document.querySelector('.profile__name');
-const profileAbout = document.querySelector('.profile__about');
-const deleteCardBttn = document.querySelector('.card__remove-button');
-const cardTemplate = document.querySelector('#card-template').content;
-const cardsContainer = document.querySelector('.gallery__container');
+const modalEditProfile = document.querySelector('.popup_profile-edit');
 
 // ---------------  Описываем функции -------------- 
 
-const toggleLike = function (event) {
+function toggleLike(event) {
   event.target.classList.toggle('card__like-button_active');
 };
 
-const openModal = function (element) {
+function openModal(element) {
   element.classList.add('popup_opened');
 };
 
-const closeModal = function (event) {
+function closeModal(event) {
   event.target.closest('.popup').classList.remove('popup_opened');
 };
 
-const removeCard = function (event) {
-  event.target.closest('.card').remove();
-};
-
-const saveFormData = function (event) {
+function saveFormData(event) {
   event.preventDefault();
 
   if (inputName.value && inputAbout.value) {
@@ -74,31 +45,43 @@ const saveFormData = function (event) {
   }
 };
 
-const renderNewCard = function (data, container) {
+function openEditModal() {
+  inputName.value = profileName.textContent;
+  inputAbout.value = profileAbout.textContent;
+  openModal(modalEditProfile);
+};
+
+function openImageModal(data) {
+  const imageZoomedCaption = modalImageZoom.querySelector('.popup__image-caption');
+  imageZoomed.src = data.source;
+  imageZoomed.alt = data.source;
+  imageZoomedCaption.textContent = data.name;
+  openModal(modalImageZoom);
+};
+
+function createCard(data) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
 
   cardImage.src = data.source;
   cardElement.querySelector('.card__title').textContent = cardElement.querySelector('.card__image').alt = data.name;
   cardElement.querySelector('.card__like-button').addEventListener('click', toggleLike);
-  cardElement.querySelector('.card__remove-button').addEventListener('click', (event) => removeCard(event));
+  cardElement.querySelector('.card__remove-button').addEventListener('click', () => cardElement.remove());
 
   // Обработчик открытия фотографии
-  cardImage.addEventListener('click', (event) => {
-    openModal(modalImageZoom);
-    const imageCaption = event.target.parentNode.querySelector('.card__title').innerHTML;
-    modalImageZoom.querySelector('.popup__zoom-image').src = modalImageZoom.querySelector('.popup__zoom-image').alt = event.target.src;
-    modalImageZoom.querySelector('.popup__image-caption').textContent = imageCaption;
-  });
+  cardImage.addEventListener('click', () => openImageModal(data));
 
+  return cardElement;
+};
+
+function renderNewCard(data, container) {
+  const cardElement = createCard(data);
   container.prepend(cardElement);
 };
 
 // Стартовый рендер карточек по массиву и template
 
-initialCards.forEach(item => {
-  renderNewCard(item, cardsContainer);
-});
+initialCards.forEach(item => renderNewCard(item, cardsContainer));
 
 // --------------- Навешиваем обработчики --------------- 
 
@@ -112,17 +95,11 @@ closeModalBttns.forEach(item => item.addEventListener('click', closeModal));
 
 // Кнопка открытия модального окна профиля
 
-editProfileBttn.addEventListener('click', () => {
-  openModal(modalEditProfile);
-  inputName.value = profileName.textContent;
-  inputAbout.value = profileAbout.textContent;
-});
+editProfileBttn.addEventListener('click', () => openEditModal());
 
 // Кнопка добавления карточек
 
-addCardBttn.addEventListener('click', () => {
-  openModal(modalAddCard);
-});
+addCardBttn.addEventListener('click', () => openModal(modalAddCard));
 
 // Кнопка сохранение формы новой карточки
 
