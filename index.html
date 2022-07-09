@@ -19,10 +19,16 @@
     <div class="popup popup_profile-edit">
       <div class="popup__container">
         <h2 class="popup__header">Редактировать профиль</h2>
-        <form action="server.php" class="popup__form popup__form_profile">
+        <form action="server.php" class="popup__form popup__form_profile" novalidate>
+
           <input class="popup__input popup__input_type_name" type="text" name="name"
-            placeholder="Введите имя профиля...">
-          <input class="popup__input popup__input_type_about" type="text" name="about" placeholder="О себе...">
+            placeholder="Введите имя профиля..." minlength="2" maxlength="20" required>
+          <span class="popup__error popup__error_type_name"></span>
+
+          <input class="popup__input popup__input_type_about" type="text" name="about" placeholder="О себе..."
+            minlength="2" maxlength="200" required>
+          <span class="popup__error popup__error_type_about"></span>
+
           <button class="popup__form-save" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-button">&#10005;</button>
@@ -32,11 +38,17 @@
     <div class="popup popup_add-card">
       <div class="popup__container">
         <h2 class="popup__header">Новое место</h2>
-        <form action="server.php" class="popup__form popup__form_add-card">
-          <input class="popup__input popup__input_type_title" type="text" name="name" placeholder="Название">
-          <input class="popup__input popup__input_type_source" type="text" name="source"
-            placeholder="Ссылка на картинку">
+        <form action="server.php" class="popup__form popup__form_add-card" novalidate>
+
+          <input class="popup__input popup__input_type_title" type="text" name="title" placeholder="Название"
+            minlength="2" maxlength="30" required>
+          <span class="popup__error popup__error_type_title"></span>
+
+          <input class="popup__input popup__input_type_source" type="url" name="source" placeholder="Ссылка на картинку"
+            required>
+          <span class="popup__error popup__error_type_source"></span>
           <button class="popup__form-save" type="submit">Создать</button>
+
         </form>
         <button class="popup__close-button">&#10005;</button>
       </div>
@@ -87,6 +99,7 @@
 
   <script src="./scripts/cards.js"></script>
   <script src="./scripts/script.js"></script>
+  <script src="./scripts/validation.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,6 @@
 // Объявляем переменные и элементы
 
-const inputName = document.querySelector('.popup__input_type_name');
-const inputAbout = document.querySelector('.popup__input_type_about');
+const popup = document.querySelectorAll('.popup');
 const profileName = document.querySelector('.profile__name');
 const addCardBttn = document.querySelector('.profile__add-card');
 const modalImageZoom = document.querySelector('.popup_card-zoom');
@@ -16,6 +15,8 @@ const closeModalBttns = document.querySelectorAll('.popup__close-button');
 const popupProfileForm = document.querySelector('.popup__form_profile');
 const popupAddCardForm = document.querySelector('.popup__form_add-card');
 const modalEditProfile = document.querySelector('.popup_profile-edit');
+const inputName = modalEditProfile.querySelector('.popup__input_type_name');
+const inputAbout = modalEditProfile.querySelector('.popup__input_type_about');
 
 // ---------------  Описываем функции -------------- 
 
@@ -28,48 +29,65 @@ function openModal(element) {
 };
 
 function closeModal(event) {
-  event.target.closest('.popup').classList.remove('popup_opened');
-};
+  const popupElement = event.target.closest('.popup');
+  const formElement = popupElement.querySelector(formsData.formSelector);
+  popupElement.classList.remove('popup_opened');
+  removePopupEventListeners(popupElement);
 
-function submitProfileData(event) {
-  event.preventDefault();
+  if (!popupElement.classList.contains('popup_card-zoom')) {
+    const inputsList = [...formElement.querySelectorAll(formsData.inputSelector)];
+    inputsList.forEach(item => hideInputError(formElement, item, formsData.errorVisibleClass, formsData.inputErrorClass));
 
-  if (inputName.value && inputAbout.value) {
-
-    profileName.textContent = inputName.value;
-    profileAbout.textContent = inputAbout.value;
-    closeModal(event);
-
-  } else {
-    alert('Заполните все поля');
+    formElement.reset();
   }
 };
 
-function submitNewCard(event) {
-  event.preventDefault();
-  const newCardName = document.querySelector('.popup__input_type_title');
-  const newCardSrc = document.querySelector('.popup__input_type_source');
-
-  if (newCardName.value && newCardSrc.value) {
-
-    renderNewCard({
-      name: newCardName.value,
-      source: newCardSrc.value
-    }, cardsContainer);
-
-    popupAddCardForm.reset();
+function closeModalOverlayHandler(event) {
+  if (event.target == event.currentTarget) {
     closeModal(event);
-
-  } else {
-    alert('Заполните все поля');
   }
 };
+
+function closeModalEscapeHandler(event) {
+  if (event.key === 'Escape') {
+    closeModal(event);
+  }
+}
+
+function addPopupEventListeners(popupElement) {
+  popupElement.addEventListener('mousedown', closeModalOverlayHandler);
+  popupElement.addEventListener('keydown', closeModalEscapeHandler);
+}
+
+function removePopupEventListeners(popupElement) {
+  popupElement.removeEventListener('mousedown', closeModalOverlayHandler);
+  popupElement.removeEventListener('keydown', closeModalEscapeHandler);
+}
 
 function openEditModal() {
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
+  const inputsList = [...modalEditProfile.querySelectorAll(formsData.inputSelector)];
+  const buttonElement = modalEditProfile.querySelector(formsData.submitButtonSelector);
+
   openModal(modalEditProfile);
+  addPopupEventListeners(modalEditProfile);
+
+  toggleButtonState(inputsList, buttonElement, formsData.inactiveButtonClass);
 };
+
+function openNewCardModal() {
+  const addCardForm = modalAddCard.querySelector(formsData.formSelector);
+  const buttonElement = addCardForm.querySelector(formsData.submitButtonSelector);
+  const inputsList = [...addCardForm.querySelectorAll(formsData.inputSelector)];
+
+  openModal(modalAddCard);
+  addPopupEventListeners(modalAddCard);
+
+  inputsList.forEach(item => hideInputError(addCardForm, item, formsData.errorVisibleClass, formsData.inputErrorClass));
+
+  toggleButtonState(inputsList, buttonElement, formsData.inactiveButtonClass);
+}
 
 function openImageModal(data) {
   const imageZoomedCaption = modalImageZoom.querySelector('.popup__image-caption');
@@ -77,6 +95,7 @@ function openImageModal(data) {
   imageZoomed.alt = data.source;
   imageZoomedCaption.textContent = data.name;
   openModal(modalImageZoom);
+  addPopupEventListeners(modalImageZoom);
 };
 
 function createCard(data) {
@@ -99,6 +118,34 @@ function renderNewCard(data, container) {
   container.prepend(cardElement);
 };
 
+function submitProfileData(event) {
+  event.preventDefault();
+
+  if (inputName.validity.valid && inputAbout.validity.valid) {
+    profileName.textContent = inputName.value;
+    profileAbout.textContent = inputAbout.value;
+    closeModal(event);
+  }
+};
+
+function submitNewCard(event) {
+  event.preventDefault();
+  const newCardName = document.querySelector('.popup__input_type_title');
+  const newCardSrc = document.querySelector('.popup__input_type_source');
+
+  if (newCardName.validity.valid && newCardSrc.validity.valid) {
+
+    renderNewCard({
+      name: newCardName.value,
+      source: newCardSrc.value
+    }, cardsContainer);
+
+    popupAddCardForm.reset();
+    closeModal(event);
+
+  }
+};
+
 // Стартовый рендер карточек по массиву и template
 
 initialCards.forEach(item => renderNewCard(item, cardsContainer));
@@ -119,7 +166,7 @@ editProfileBttn.addEventListener('click', () => openEditModal());
 
 // Кнопка добавления карточек
 
-addCardBttn.addEventListener('click', () => openModal(modalAddCard));
+addCardBttn.addEventListener('click', openNewCardModal);
 
 // Кнопка сохранение формы новой карточки
 
