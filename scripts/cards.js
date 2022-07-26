@@ -11,32 +11,30 @@ export default class Card {
   _setEventListeners(cardElement) {
     cardElement.querySelector(".card__like-button").addEventListener("click", this._toggleLike);
     cardElement.querySelector(".card__remove-button").addEventListener("click", () => cardElement.remove());
-    cardElement
-      .querySelector(".card__image")
-      .addEventListener("click", () => this._openImageModal(this.name, this.source));
+    cardElement.querySelector(".card__image").addEventListener("click", () => this._openImageModal());
   }
 
   _toggleLike(event) {
     event.target.classList.toggle("card__like-button_active");
   }
 
-  _openImageModal(name, source) {
-    imageZoomed.src = source;
-    imageZoomed.alt = name;
-    imageZoomedCaption.textContent = name;
+  _openImageModal() {
+    imageZoomed.src = this.source;
+    imageZoomed.alt = this.name;
+    imageZoomedCaption.textContent = this.name;
     openModal(modalImageZoom);
   }
 
   generateCard() {
-    const cardElement = document.querySelector(this.templateClass).content.querySelector(".card").cloneNode(true);
-    const cardImage = cardElement.querySelector(".card__image");
+    this.cardElement = document.querySelector(this.templateClass).content.querySelector(".card").cloneNode(true);
+    this.cardImage = this.cardElement.querySelector(".card__image");
 
-    cardImage.src = this.source;
-    cardElement.querySelector(".card__title").textContent = this.name;
-    cardElement.querySelector(".card__image").alt = this.name;
+    this.cardImage.src = this.source;
+    this.cardElement.querySelector(".card__title").textContent = this.name;
+    this.cardElement.querySelector(".card__image").alt = this.name;
 
-    this._setEventListeners(cardElement);
+    this._setEventListeners(this.cardElement);
 
-    return cardElement;
+    return this.cardElement;
   }
 }
