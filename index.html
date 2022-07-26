@@ -1,105 +1,122 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesto</title>
+    <link type="image/png" sizes="32x32" rel="icon" href="./img/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="pages/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mesto</title>
-  <link type="image/png" sizes="32x32" rel="icon" href="./img/favicon.png">
-  <link rel="stylesheet" type="text/css" href="pages/index.css">
-</head>
+  <body class="body">
+    <div class="page">
+      <header class="header">
+        <img class="header__logo" src="./img/Logo_mesto.png" alt="Лого" />
+      </header>
 
-<body class="body">
-  <div class="page">
-    <header class="header">
-      <img class="header__logo" src="./img/Logo_mesto.png" alt="Лого">
-    </header>
+      <div class="popup popup_profile-edit">
+        <div class="popup__container">
+          <h2 class="popup__header">Редактировать профиль</h2>
+          <form action="server.php" class="popup__form popup__form_profile" novalidate>
+            <input
+              class="popup__input popup__input_type_name"
+              type="text"
+              name="name"
+              placeholder="Введите имя профиля..."
+              minlength="2"
+              maxlength="20"
+              required
+            />
+            <span class="popup__error popup__error_type_name"></span>
 
-    <div class="popup popup_profile-edit">
-      <div class="popup__container">
-        <h2 class="popup__header">Редактировать профиль</h2>
-        <form action="server.php" class="popup__form popup__form_profile" novalidate>
+            <input
+              class="popup__input popup__input_type_about"
+              type="text"
+              name="about"
+              placeholder="О себе..."
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span class="popup__error popup__error_type_about"></span>
 
-          <input class="popup__input popup__input_type_name" type="text" name="name"
-            placeholder="Введите имя профиля..." minlength="2" maxlength="20" required>
-          <span class="popup__error popup__error_type_name"></span>
-
-          <input class="popup__input popup__input_type_about" type="text" name="about" placeholder="О себе..."
-            minlength="2" maxlength="200" required>
-          <span class="popup__error popup__error_type_about"></span>
-
-          <button class="popup__form-save" type="submit">Сохранить</button>
-        </form>
-        <button class="popup__close-button">&#10005;</button>
-      </div>
-    </div>
-
-    <div class="popup popup_add-card">
-      <div class="popup__container">
-        <h2 class="popup__header">Новое место</h2>
-        <form action="server.php" class="popup__form popup__form_add-card" novalidate>
-
-          <input class="popup__input popup__input_type_title" type="text" name="title" placeholder="Название"
-            minlength="2" maxlength="30" required>
-          <span class="popup__error popup__error_type_title"></span>
-
-          <input class="popup__input popup__input_type_source" type="url" name="source" placeholder="Ссылка на картинку"
-            required>
-          <span class="popup__error popup__error_type_source"></span>
-          <button class="popup__form-save" type="submit">Создать</button>
-
-        </form>
-        <button class="popup__close-button">&#10005;</button>
-      </div>
-    </div>
-
-    <div class="popup popup_card-zoom ">
-      <div class="popup__image-container">
-        <img class="popup__zoom-image" src="#" alt="">
-        <h3 class="popup__image-caption"></h3>
-        <button class="popup__close-button">&#10005;</button>
-      </div>
-    </div>
-
-    <main class="main">
-      <section class="profile">
-        <div class="profile__info">
-          <img class="profile__avatar" src="./img/profile_image.jpg" alt="">
-          <div class="profile__details">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
-            <p class="profile__about">Исследователь океана</p>
-          </div>
+            <button class="popup__form-save" type="submit">Сохранить</button>
+          </form>
+          <button class="popup__close-button">&#10005;</button>
         </div>
-        <button class="profile__add-card">&plus;</button>
-      </section>
-
-      <section class="gallery">
-        <ul class="gallery__container">
-        </ul>
-      </section>
-
-    </main>
-    <footer class="footer">
-      <p class="footer__credits">&copy; 2220 Mesto Russia</p>
-    </footer>
-  </div>
-
-  <template id="card-template">
-    <li class="card">
-      <img class="card__image" src="#" alt="">
-      <div class="card__info">
-        <h3 class="card__title"></h3>
-        <button class="card__like-button"></button>
       </div>
-      <button class="card__remove-button"></button>
-    </li>
-  </template>
 
-  <script src="./scripts/cards.js"></script>
-  <script src="./scripts/script.js"></script>
-  <script src="./scripts/validation.js"></script>
-</body>
+      <div class="popup popup_add-card">
+        <div class="popup__container">
+          <h2 class="popup__header">Новое место</h2>
+          <form action="server.php" class="popup__form popup__form_add-card" novalidate>
+            <input
+              class="popup__input popup__input_type_title"
+              type="text"
+              name="title"
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              required
+            />
+            <span class="popup__error popup__error_type_title"></span>
 
+            <input
+              class="popup__input popup__input_type_source"
+              type="url"
+              name="source"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="popup__error popup__error_type_source"></span>
+            <button class="popup__form-save popup__form-save_type_inactive" type="submit" disabled>Создать</button>
+          </form>
+          <button class="popup__close-button">&#10005;</button>
+        </div>
+      </div>
+
+      <div class="popup popup_card-zoom">
+        <div class="popup__image-container">
+          <img class="popup__zoom-image" src="#" alt="" />
+          <h3 class="popup__image-caption"></h3>
+          <button class="popup__close-button">&#10005;</button>
+        </div>
+      </div>
+
+      <main class="main">
+        <section class="profile">
+          <div class="profile__info">
+            <img class="profile__avatar" src="./img/profile_image.jpg" alt="" />
+            <div class="profile__details">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button"></button>
+              <p class="profile__about">Исследователь океана</p>
+            </div>
+          </div>
+          <button class="profile__add-card">&plus;</button>
+        </section>
+
+        <section class="gallery">
+          <ul class="gallery__container"></ul>
+        </section>
+      </main>
+      <footer class="footer">
+        <p class="footer__credits">&copy; 2220 Mesto Russia</p>
+      </footer>
+    </div>
+
+    <template id="card-template">
+      <li class="card">
+        <img class="card__image" src="#" alt="" />
+        <div class="card__info">
+          <h3 class="card__title"></h3>
+          <button class="card__like-button"></button>
+        </div>
+        <button class="card__remove-button"></button>
+      </li>
+    </template>
+
+    <script type="module" src="./scripts/index.js"></script>
+  </body>
 </html>
