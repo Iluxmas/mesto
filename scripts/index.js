@@ -67,31 +67,32 @@ function closeModalEscapeHandler(event) {
 }
 
 function openProfileModal() {
+  formValidationProfile.refreshForm();
+
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
 
-  inputsListProfile.forEach((input) => formValidationProfile.hideInputError(input));
   formValidationProfile.toggleButtonState();
 
   openModal(modalEditProfile);
 }
 
 function openAddCardModal() {
+  formValidationAddCard.refreshForm();
   formValidationAddCard.toggleButtonState();
-
-  inputsListAddCard.forEach((input) => {
-    formValidationAddCard.hideInputError(input);
-    input.value = "";
-  });
 
   openModal(modalAddCard);
 }
 
-function renderCard(name, src, templateId, cardsContainer) {
+function createCard(name, src, templateId) {
   const newCard = new Card(name, src, templateId);
   const cardElement = newCard.generateCard();
+  return cardElement;
+}
 
-  cardsContainer.prepend(cardElement);
+function renderCard(name, src, templateId, container) {
+  const newCard = createCard(name, src, templateId);
+  container.prepend(newCard);
 }
 
 function submitProfileData(event) {
@@ -107,16 +108,14 @@ function submitProfileData(event) {
 
 function submitNewCard(event) {
   event.preventDefault();
+
+  renderCard(newCardName.value, newCardSrc.value, "#card-template", cardsContainer);
+
+  formPopupAddCard.reset();
+  formValidationAddCard.toggleButtonState();
+
   const popupElement = event.target.closest(".popup");
-
-  if (newCardName.validity.valid && newCardSrc.validity.valid) {
-    renderCard(newCardName.value, newCardSrc.value, "#card-template", cardsContainer);
-
-    formPopupAddCard.reset();
-    formValidationAddCard.toggleButtonState();
-
-    closeModal(popupElement);
-  }
+  closeModal(popupElement);
 }
 
 // ------------------ Навешиваем обработчики -------------------

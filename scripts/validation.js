@@ -33,6 +33,13 @@ export default class FormValidator {
     errorElement.textContent = "";
   }
 
+  refreshForm() {
+    this.inputsList.forEach((input) => {
+      this.hideInputError(input);
+      input.value = "";
+    });
+  }
+
   _hasInvalidInput() {
     return this.inputsList.some((inputElement) => !inputElement.validity.valid);
   }

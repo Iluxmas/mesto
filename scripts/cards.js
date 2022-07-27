@@ -3,15 +3,15 @@ import { openModal, imageZoomed, imageZoomedCaption, modalImageZoom } from "./in
 // Описание класса карточек
 export default class Card {
   constructor(name, source, templateClass) {
-    this.name = name;
-    this.source = source;
+    this._name = name;
+    this._source = source;
     this.templateClass = templateClass;
   }
 
-  _setEventListeners(cardElement) {
-    cardElement.querySelector(".card__like-button").addEventListener("click", this._toggleLike);
-    cardElement.querySelector(".card__remove-button").addEventListener("click", () => cardElement.remove());
-    cardElement.querySelector(".card__image").addEventListener("click", () => this._openImageModal());
+  _setEventListeners() {
+    this.cardElement.querySelector(".card__like-button").addEventListener("click", this._toggleLike);
+    this.cardElement.querySelector(".card__remove-button").addEventListener("click", () => this.cardElement.remove());
+    this.cardElement.querySelector(".card__image").addEventListener("click", () => this._openImageModal());
   }
 
   _toggleLike(event) {
@@ -19,9 +19,9 @@ export default class Card {
   }
 
   _openImageModal() {
-    imageZoomed.src = this.source;
-    imageZoomed.alt = this.name;
-    imageZoomedCaption.textContent = this.name;
+    imageZoomed.src = this._source;
+    imageZoomed.alt = this._name;
+    imageZoomedCaption.textContent = this._name;
     openModal(modalImageZoom);
   }
 
@@ -29,11 +29,11 @@ export default class Card {
     this.cardElement = document.querySelector(this.templateClass).content.querySelector(".card").cloneNode(true);
     this.cardImage = this.cardElement.querySelector(".card__image");
 
-    this.cardImage.src = this.source;
-    this.cardElement.querySelector(".card__title").textContent = this.name;
-    this.cardElement.querySelector(".card__image").alt = this.name;
+    this.cardImage.src = this._source;
+    this.cardElement.querySelector(".card__title").textContent = this._name;
+    this.cardElement.querySelector(".card__image").alt = this._name;
 
-    this._setEventListeners(this.cardElement);
+    this._setEventListeners();
 
     return this.cardElement;
   }
