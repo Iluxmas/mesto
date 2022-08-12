@@ -1,28 +1,19 @@
-import { openModal, imageZoomed, imageZoomedCaption, modalImageZoom } from "./index.js";
-
-// Описание класса карточек
 export default class Card {
-  constructor(name, source, templateClass) {
+  constructor(name, source, templateClass, handleCardClick) {
     this._name = name;
     this._source = source;
     this.templateClass = templateClass;
+    this._handleCardClick = handleCardClick.bind(this);
   }
 
   _setEventListeners() {
     this.cardElement.querySelector(".card__like-button").addEventListener("click", this._toggleLike);
     this.cardElement.querySelector(".card__remove-button").addEventListener("click", () => this.cardElement.remove());
-    this.cardElement.querySelector(".card__image").addEventListener("click", () => this._openImageModal());
+    this.cardElement.querySelector(".card__image").addEventListener("click", () => this._handleCardClick());
   }
 
   _toggleLike(event) {
     event.target.classList.toggle("card__like-button_active");
-  }
-
-  _openImageModal() {
-    imageZoomed.src = this._source;
-    imageZoomed.alt = this._name;
-    imageZoomedCaption.textContent = this._name;
-    openModal(modalImageZoom);
   }
 
   generateCard() {
