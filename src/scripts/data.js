@@ -6,12 +6,12 @@ const rotterdamImage = new URL("../img/gallery_image_Rotterdam_original.JPEG", i
 const montenegroImage = new URL("../img/gallery_image_SvetiStephan_original.JPEG", import.meta.url);
 
 const initialCards = [
-  { name: "Афины", source: athensImage },
-  { name: "Атомиум, Брюссель", source: brusselsImage },
-  { name: "Остров Крит", source: creteImage },
-  { name: "Стамбульский кот", source: istanbulImage },
-  { name: "Кубические дома, Роттердам", source: rotterdamImage },
-  { name: "Свети-Стефан", source: montenegroImage },
+  { title: "Афины", source: athensImage },
+  { title: "Атомиум, Брюссель", source: brusselsImage },
+  { title: "Остров Крит", source: creteImage },
+  { title: "Стамбульский кот", source: istanbulImage },
+  { title: "Кубические дома, Роттердам", source: rotterdamImage },
+  { title: "Свети-Стефан", source: montenegroImage },
 ];
 
 const formsData = {
@@ -30,6 +30,9 @@ const profileNameTextSelector = ".profile__name";
 const profileAboutTextSelector = ".profile__about";
 const cardTemplateID = "#card-template";
 
+const imageZoomed = document.querySelector(".popup__zoom-image");
+const imageZoomedCaption = document.querySelector(".popup__image-caption");
+
 export {
   initialCards,
   formsData,
@@ -40,4 +43,6 @@ export {
   profileNameTextSelector,
   profileAboutTextSelector,
   cardTemplateID,
+  imageZoomed,
+  imageZoomedCaption,
 };

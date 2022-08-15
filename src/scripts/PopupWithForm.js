@@ -5,10 +5,13 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._cbFormSubmit = cbFormSubmit.bind(this);
     this._form = this.popupElement.querySelector(".popup__form");
+    this.inputsList = [...this.popupElement.querySelectorAll(".popup__input")];
   }
 
   getInputValues() {
-    return [...this.popupElement.querySelectorAll(".popup__input")].map((item) => item.value);
+    const inputsValuesObj = {};
+    this.inputsList.forEach((item) => (inputsValuesObj[item.name] = item.value));
+    return inputsValuesObj;
   }
 
   setEventListeners() {

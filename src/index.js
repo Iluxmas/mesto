@@ -14,7 +14,7 @@ import PopupWithForm from "./scripts/PopupWithForm.js";
 import PopupWithImage from "./scripts/PopupWithImage.js";
 import Section from "./scripts/Section.js";
 import UserInfo from "./scripts/Userinfo.js";
-import FormValidator from "./scripts/Validation.js";
+import FormValidator from "./scripts/FormValidator.js";
 import Card from "./scripts/Card.js";
 
 import "./index.css";
@@ -26,22 +26,21 @@ const bttnOpenPopupProfile = document.querySelector(".profile__edit-button");
 
 // -----------------  Описываем функции -----------------
 
-function renderCard({ name, source }) {
-  const newCard = new Card(name, source, cardTemplateID, handleCardClick);
+function renderCard({ title, source }) {
+  const newCard = new Card(title, source, cardTemplateID, handleCardClick);
   const cardElement = newCard.generateCard();
   sectionElement.addItem(cardElement);
 }
 
 function handleCardClick() {
-  popupImage.open(this._source, this._name);
+  popupImage.open(this._source, this._title);
 }
 
 function openProfileModal() {
   formValidationProfile.refreshForm();
 
   const userCurrentData = userInfo.getUserInfo();
-  formValidationProfile.inputsList[0].value = userCurrentData.name;
-  formValidationProfile.inputsList[1].value = userCurrentData.info;
+  popupUserModal.inputsList.forEach((item) => (item.value = userCurrentData[item.name]));
 
   formValidationProfile.toggleButtonState();
   popupUserModal.open();
@@ -50,7 +49,6 @@ function openProfileModal() {
 function openAddCardModal() {
   formValidationAddCard.refreshForm();
   formValidationAddCard.toggleButtonState();
-
   popupNewCard.open();
 }
 
@@ -58,7 +56,7 @@ function submitProfileData(event) {
   event.preventDefault();
 
   const userNewData = this.getInputValues();
-  userInfo.setUserInfo({ name: userNewData[0], info: userNewData[1] });
+  userInfo.setUserInfo(userNewData);
 
   this.close();
 }
@@ -67,10 +65,9 @@ function submitNewCard(event) {
   event.preventDefault();
 
   const cardNewData = this.getInputValues();
-  renderCard({ name: cardNewData[0], source: cardNewData[1] });
+  renderCard(cardNewData);
 
   this.close();
-
   formValidationAddCard.refreshForm();
   formValidationAddCard.toggleButtonState();
 }
