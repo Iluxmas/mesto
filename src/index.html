@@ -62,13 +62,13 @@
             <span class="popup__error popup__error_type_title"></span>
 
             <input
-              class="popup__input popup__input_type_source"
+              class="popup__input popup__input_type_link"
               type="url"
-              name="source"
+              name="link"
               placeholder="Ссылка на картинку"
               required
             />
-            <span class="popup__error popup__error_type_source"></span>
+            <span class="popup__error popup__error_type_link"></span>
             <button class="popup__form-save popup__form-save_type_inactive" type="submit" disabled>Создать</button>
           </form>
           <button class="popup__close-button">&#10005;</button>
@@ -83,14 +83,46 @@
         </div>
       </div>
 
+      <div class="popup popup_avatar">
+        <div class="popup__container">
+          <h2 class="popup__header">Обновить аватар</h2>
+          <form action="" class="popup__form popup__form_update-avatar" novalidate>
+            <input
+              class="popup__input popup__input_type_avatar"
+              type="url"
+              name="avatar"
+              placeholder="Ссылка на новое изображение профиля"
+              required
+            />
+            <span class="popup__error popup__error_type_avatar"></span>
+            <button class="popup__form-save popup__form-save_type_inactive" type="submit" disabled>Сохранить</button>
+          </form>
+          <button class="popup__close-button">&#10005;</button>
+        </div>
+      </div>
+
+      <div class="popup popup_confirmation">
+        <div class="popup__container">
+          <h2 class="popup__header">Вы уверены?</h2>
+          <form action="" class="popup__form popup__form_confirmation" novalidate>
+            <button class="popup__form-save" type="submit">Да</button>
+          </form>
+          <button class="popup__close-button">&#10005;</button>
+        </div>
+      </div>
+
       <main class="main">
         <section class="profile">
           <div class="profile__info">
-            <img class="profile__avatar" src="<%=require('./img/profile_image.jpg')%>" alt="" />
+            <div class="profile__avatar-container">
+              <img class="profile__avatar" src="#" alt="аватар пользователя" />
+              <div class="profile__avatar-overlay"><button class="profile__avatar-edit"></button></div>
+            </div>
+
             <div class="profile__details">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name"></h1>
               <button class="profile__edit-button"></button>
-              <p class="profile__about">Исследователь океана</p>
+              <p class="profile__about"></p>
             </div>
           </div>
           <button class="profile__add-card">&plus;</button>
@@ -110,7 +142,10 @@
         <img class="card__image" src="#" alt="" />
         <div class="card__info">
           <h3 class="card__title"></h3>
-          <button class="card__like-button"></button>
+          <div class="card__like-board">
+            <button class="card__like-button"></button>
+            <p class="card__like-counter"></p>
+          </div>
         </div>
         <button class="card__remove-button"></button>
       </li>

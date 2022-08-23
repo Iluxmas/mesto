@@ -3,19 +3,4 @@
   width: 120px;
   height: 120px;
   object-fit: cover;
-  margin-bottom: 25px;
-}
-
-@media (min-width: 545px) {
-  .profile__avatar {
-    margin-right: 20px;
-  }
-}
-
-@media (min-width: 768px) {
-  .profile__avatar {
-    margin-bottom: 0;
-
-    margin-right: 30px;
-  }
 }

@@ -2,15 +2,15 @@
   display: inline-block;
   width: 18px;
   height: 18px;
-  border: 1px solid #FFF;
+  border: 1px solid #fff;
   background: center/48% url(../../../img/pencil_icon.png) no-repeat;
   grid-column: 2 / 3;
 }
 
 .profile__edit-button:hover {
   cursor: pointer;
-  opacity: .6;
-  transition: opacity .15s;
+  opacity: 0.6;
+  transition: opacity 0.15s;
 }
 
 @media (min-width: 545px) {
