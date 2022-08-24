@@ -1,16 +1,16 @@
 import Popup from "./Popup.js";
 
-import { imageZoomed, imageZoomedCaption } from "./data.js";
-
 export default class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
+    this.imageZoomed = document.querySelector(".popup__zoom-image");
+    this.imageZoomedCaption = document.querySelector(".popup__image-caption");
   }
 
   open(source, name) {
     super.open();
-    imageZoomed.src = source;
-    imageZoomed.alt = name;
-    imageZoomedCaption.textContent = name;
+    this.imageZoomed.src = source;
+    this.imageZoomed.alt = name;
+    this.imageZoomedCaption.textContent = name;
   }
 }

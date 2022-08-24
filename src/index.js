@@ -1,5 +1,4 @@
 import {
-  initialCards,
   formsData,
   cardsContainerSelector,
   popupImageSelector,
@@ -50,36 +49,28 @@ function renderCard({ name, link, likes, _id: cardId, owner }) {
     handleCardLike
   );
 
-  const cardElement = newCard.generateCard();
-  sectionElement.addItem(cardElement);
+  return newCard.generateCard();
 }
 
-function handleCardClick() {
-  popupImage.open(this._source, this._title);
+// ручки
+function handleCardClick(source, title) {
+  popupImage.open(source, title);
 }
 
-function handleCardDelete(id) {
+function handleCardDelete(id, element) {
   popupDeleteConfirmation.id = id;
+  popupDeleteConfirmation.element = element;
   popupDeleteConfirmation.open();
 }
 
 function handleCardLike(cardId, isLiked) {
   apiService
     .toggleLike(cardId, isLiked)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Проблема с проставкой лайка");
-    })
-    .then((data) => {
-      this.likesCounter.textContent = data.likes.length;
-      this.isLiked = !this.isLiked;
-      this.likeBttn.classList.toggle("card__like-button_active");
-    })
+    .then((data) => this.toggleLike(data))
     .catch((err) => console.log(err));
 }
 
+// открывашки
 function openProfileModal() {
   formValidationProfile.refreshForm();
 
@@ -102,28 +93,10 @@ function openAvatarModal() {
   popupAvatar.open();
 }
 
-function incredibleUserExperience(isLoading, element) {
-  let ms = 200;
-  if (isLoading) {
-    let counter = 0;
-    let interval = setInterval(() => {
-      setTimeout(() => (element.textContent += " ."), 0);
-      setTimeout(() => (element.textContent += " ."), ms);
-      setTimeout(() => (element.textContent += " ."), ms * 2);
-      setTimeout(() => (element.textContent = element.textContent.split(" ")[0]), ms * 3);
-
-      if (counter++ === 5) {
-        clearInterval(interval);
-      }
-    }, ms * 4);
-  } else {
-    element.textContent = element.textContent.split(" ")[0];
-  }
-}
-
+// отправляшки
 function submitProfileData(event) {
   event.preventDefault();
-  incredibleUserExperience(true, this._submitBttn);
+  const interval = incredibleUserExperience(true, this.submitBttn);
 
   const userNewData = this.getInputValues();
   const currentUserData = userInfo.getUserInfo();
@@ -131,15 +104,14 @@ function submitProfileData(event) {
   if (userInfo.isDataNew(currentUserData, userNewData)) {
     apiService
       .patchProfileData(userNewData)
-      .then((res) => {
-        if (res.ok) return res.json();
-        return Promise.reject("Не получилось обновить данные профиля...");
+      .then((data) => {
+        userInfo.setUserInfo(data);
+        this.close();
       })
-      .then((data) => userInfo.setUserInfo(data))
       .catch((err) => console.log(err))
       .finally(() => {
-        incredibleUserExperience(false, this._submitBttn);
-        this.close();
+        clearInterval(interval);
+        incredibleUserExperience(false, this.submitBttn);
       });
   } else {
     this.close();
@@ -148,77 +120,78 @@ function submitProfileData(event) {
 
 function submitNewCard(event) {
   event.preventDefault();
-  incredibleUserExperience(true, this._submitBttn);
+  const interval = incredibleUserExperience(true, this.submitBttn);
 
   const cardNewData = this.getInputValues();
 
   apiService
     .postNewCard(cardNewData)
-    .then((res) => {
-      if (res.ok) return res.json();
-      return Promise.reject("Проблема с загрузкой новой карточки");
-    })
     .then((data) => {
-      renderCard(data);
-    })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      incredibleUserExperience(false, this._submitBttn);
+      sectionElement.addItem(renderCard(data));
       this.close();
       formValidationAddCard.refreshForm();
       formValidationAddCard.toggleButtonState();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => {
+      clearInterval(interval);
+      incredibleUserExperience(false, this.submitBttn);
     });
 }
 
 function submitCardDeletion(event) {
   event.preventDefault();
-  incredibleUserExperience(true, this._submitBttn);
+  const interval = incredibleUserExperience(true, this.submitBttn);
 
   apiService
     .deleteCard(popupDeleteConfirmation.id)
-    .then(() => apiService.getInitialCards())
-    .then((res) => {
-      if (res.ok) return res.json();
-      return Promise.reject(
-        `Данные карточек не загрузились... Сервер спит... А бэкендеры уже нет \n status: ${res.status}`
-      );
-    })
-    .then((data) => {
-      sectionElement.items = data;
-      sectionElement.render();
+    .then(() => {
+      this.element.remove();
+      popupDeleteConfirmation.close();
+      return;
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      incredibleUserExperience(false, this._submitBttn);
-
-      popupDeleteConfirmation.close();
+      clearInterval(interval);
+      incredibleUserExperience(false, this.submitBttn);
     });
 }
 
 function submitNewAvatar(event) {
   event.preventDefault();
-  incredibleUserExperience(true, this._submitBttn);
+  const interval = incredibleUserExperience(true, this.submitBttn);
 
   const newAvatarData = this.getInputValues();
 
   apiService
     .patchProfileAvatar(newAvatarData)
     .then(() => apiService.getProfileInfo())
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Данные профиля не грузятся... Сервер спит... А бэкендеры уже нет");
-    })
     .then((data) => {
       userInfo.setUserAvatar(data);
+      this.close();
+      formValidationAvatar.refreshForm();
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      incredibleUserExperience(false, this._submitBttn);
-      this.close();
-      formValidationAvatar.refreshForm();
+      clearInterval(interval);
+      incredibleUserExperience(false, this.submitBttn);
     });
+}
+
+// State-Of-Art award of UX Expo 2220 :D
+function incredibleUserExperience(isLoading, element) {
+  let ms = 200;
+  if (isLoading) {
+    let interval = setInterval(() => {
+      setTimeout(() => (element.textContent += " ."), 0);
+      setTimeout(() => (element.textContent += " ."), ms);
+      setTimeout(() => (element.textContent += " ."), ms * 2);
+      setTimeout(() => (element.textContent = element.textContent.split(" ")[0]), ms * 3);
+    }, ms * 4);
+    return interval;
+  } else {
+    element.textContent = element.textContent.split(" ")[0];
+  }
 }
 
 // Кнопка открытия модального окна профиля
@@ -231,35 +204,18 @@ bttnOpenPopupCard.addEventListener("click", () => openAddCardModal());
 bttnOpenPopupAvatar.addEventListener("click", () => openAvatarModal());
 
 // ----------- Стартовый рендер карточек по массиву  -----------
-const sectionElement = new Section({ items: null, renderer: renderCard }, cardsContainerSelector);
+const sectionElement = new Section({ renderer: renderCard }, cardsContainerSelector);
 
 // -------- Получение стартовой информации с сервера -----------
 
 const apiService = new ApiService(apiData);
 
-apiService
-  .getProfileInfo()
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject("Данные профиля не грузятся... Сервер спит... А бэкендеры уже нет");
-  })
+Promise.all([apiService.getProfileInfo(), apiService.getInitialCards()])
   .then((data) => {
-    userInfo.setUserInfo(data);
-    userInfo.setUserAvatar(data);
-    userInfo.setUserId(data);
-  })
-  .catch((err) => console.log(err));
-
-apiService
-  .getInitialCards()
-  .then((res) => {
-    if (res.ok) return res.json();
-    return Promise.reject("Данные карточек не загрузились... Сервер спит... А бэкендеры уже нет");
-  })
-  .then((data) => {
-    data.forEach((card) => renderCard(card));
+    userInfo.setUserInfo(data[0]);
+    userInfo.setUserAvatar(data[0]);
+    userInfo.setUserId(data[0]);
+    sectionElement.render(data[1].reverse());
   })
   .catch((err) => console.log(err));
 

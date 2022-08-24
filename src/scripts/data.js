@@ -39,9 +39,6 @@ const profileAboutTextSelector = ".profile__about";
 const profileAvatarImgSelector = ".profile__avatar";
 const cardTemplateID = "#card-template";
 
-const imageZoomed = document.querySelector(".popup__zoom-image");
-const imageZoomedCaption = document.querySelector(".popup__image-caption");
-
 export {
   initialCards,
   formsData,
@@ -52,8 +49,6 @@ export {
   profileNameTextSelector,
   profileAboutTextSelector,
   cardTemplateID,
-  imageZoomed,
-  imageZoomedCaption,
   popupAvatarSelector,
   popupConfirmationSelector,
   profileAvatarImgSelector,
