@@ -9,6 +9,8 @@ Features:
 - Modal windows opening and form validation
 - Changing User profile data (name, about and avatar)
 
+Webpack configurated to build project (branch gh-pages).
+
 **GitHub**
 
 [Link to GitHub Pages](https://iluxmas.github.io/mesto/index.html)

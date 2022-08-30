@@ -24,7 +24,6 @@ const profileAvatarImgSelector = ".profile__avatar";
 const cardTemplateID = "#card-template";
 
 export {
-  initialCards,
   formsData,
   cardsContainerSelector,
   popupImageSelector,
