@@ -179,7 +179,9 @@ function submitNewAvatar(event) {
 }
 
 // State-Of-Art award of UX Expo 2220 :D
+
 function incredibleUserExperience(isLoading, element) {
+  // effect only noticeable on slow connections
   let ms = 200;
   if (isLoading) {
     let interval = setInterval(() => {
