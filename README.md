@@ -12,7 +12,7 @@ Page is adaptive, size and position of elements depends on screen size. ApiServi
 - Modal windows opening and forms validation
 - Changing User profile data (name, about and avatar)
 
-Project compilation done by Webpack, avaliable via link in the bottom. 
+Webpack was used for bundling, link at the bottom. 
 
 In case of cloning of main branch, execute next commands to run the project  - `npm i` to install dependencies, `npm run dev` to run page on port :8080
 
