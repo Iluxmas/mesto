@@ -18,4 +18,4 @@ In case of cloning of main branch, execute next commands to run the project  - `
 
 **GitHub**
 
-[Link to GitHub Pages](https://iluxmas.github.io/mesto/index.html)
+[Link to GitHub Pages](https://iluxmas.github.io/mesto/index.html) (use CTRL+click or ⌘+click to open in new tab)
